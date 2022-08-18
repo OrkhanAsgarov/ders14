@@ -1,8 +1,27 @@
-
+import React from "react";
+import Todos from "./Todos";
 
 function App() {
+  const [sayac, sayacGuncelle] = React.useState(0);
+  const [todos, setTodos] = React.useState([]);
+
+  const increment = () => {
+    sayacGuncelle((oncekiSayac) => oncekiSayac + 1);
+  };
+  const addTodo = React.useCallback(() => {
+    let saniye = new Date().getSeconds();
+    setTodos((ocekiDizi) => [...ocekiDizi, "Yapilacak is " + saniye]);
+  }, []);
+
   return (
-   <p>Merhaba Dunya</p>
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <hr />
+      <div>
+        Sayac: {sayac}
+        <button onClick={increment}>+</button>
+      </div>
+    </>
   );
 }
 
