@@ -1,9 +1,18 @@
 import React from "react";
 import Todos from "./Todos";
 
+const cokZamanAlanFonksiyon = (num) => {
+  console.log("Hesaplama yapiliyor...");
+  for (let i = 0; i < 1000000000; i++) {
+    num += 1;
+  }
+  return num;
+};
+
 function App() {
   const [sayac, sayacGuncelle] = React.useState(0);
   const [todos, setTodos] = React.useState([]);
+  const hesaplamaSonucu = React.useMemo(() => cokZamanAlanFonksiyon(sayac), [todos, sayac]);
 
   const increment = () => {
     sayacGuncelle((oncekiSayac) => oncekiSayac + 1);
@@ -15,6 +24,7 @@ function App() {
 
   return (
     <>
+      <p>Hesaplama Sonucu: {hesaplamaSonucu}</p>
       <Todos todos={todos} addTodo={addTodo} />
       <hr />
       <div>
@@ -23,6 +33,8 @@ function App() {
       </div>
     </>
   );
-}
+};
+
+
 
 export default App;
